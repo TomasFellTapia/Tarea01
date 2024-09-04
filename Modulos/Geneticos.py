@@ -27,6 +27,13 @@ for i in range(p):
 print("\n")
 print(poblacion)
 
+fitness = np.zeros(p,int)
+
+print (fitness)
+for k in range(p):
+    for i in range(n-1):
+        for j in range(i+1,n):
+            
 
 
 
