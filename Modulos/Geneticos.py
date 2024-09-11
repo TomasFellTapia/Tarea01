@@ -15,37 +15,69 @@ else:
     print("Error entrada de los parametros")
     print("Los parámetors son: semilla, tamaño del tablero, tamaño población iteraciones...")
     sys.exit(0)
-np.random.seed(semilla)
-poblacion = np.zeros((p,n),int)
-print(poblacion)
-for i in range(p):
-   # print(i+1,": ",np.random.randint(1,p))
-    # print(i+1,": ",np.random.rand())
-    poblacion[i]=np.arange(0,n)
-    np.random.shuffle(poblacion[i])
+if n>=8:
+    np.random.seed(semilla)
+    poblacion = np.zeros((p,n),int)
+    print(poblacion)
+    for i in range(p):
+        # print(i+1,": ",np.random.randint(1,p))
+        # print(i+1,": ",np.random.rand())
+        poblacion[i]=np.arange(0,n)
+        np.random.shuffle(poblacion[i])
     
+    print("\n")
+    print(poblacion)
+    # fitness
+    fitness = np.zeros(p,int)
 
-print("\n")
-print(poblacion)
-#fitness
-fitness = np.zeros(p,int)
 
-
-print ("Fitnes inicial: \n",fitness)
-for k in range(p):
-    for i in range(n-1):
-        for j in range(i+1,n):
-            if(np.absolute(poblacion[k][i]-poblacion[k][j])==np.absolute(i-j) or poblacion[k][i]==poblacion[k][j]):
-                fitness[k] +=1
+    
+    for k in range(p):
+        for i in range(n-1):
+            for j in range(i+1,n):
+                if(np.absolute(poblacion[k][i]-poblacion[k][j])==np.absolute(i-j) or poblacion[k][i]==poblacion[k][j]):
+                    fitness[k] +=1
   
 
-print ("fitnes final: \n",fitness)
-#ruleta
-prob=fitness/fitness.sum()  
-#crear ruleta
-for i in range(1,p):
-    prob[i]=prob[i]+prob[i-1]
-print(prob)
+    
+    #ruleta
+    prob=np.cumsum(fitness/fitness.sum())  
+    print (prob)
+    
+    ale = np.random.rand()
+    for t in range (p):
+        if ale< prob[t]:
+            padre1 = poblacion[t]
+            break
+    ale2 = np.random.rand()
 
-#Crusa
+    for t in range(p):
+        if ale2<prob[t]:
+            padre2 = poblacion[t]
 
+    
+    print (padre1)
+    print (padre2)
+    corte = np.random.randint(1,n)
+    print(corte)
+    hijo11 = padre1[:corte]
+    hijo12 = padre2[corte:]
+    hijo21 = padre2[:corte]
+    hijo22 = padre1[corte:]
+    hijo1= np.concatenate((hijo11,hijo12))
+    
+    print (hijo1)
+    
+   
+        
+
+    
+        
+
+
+
+    #Crusa
+else:
+    print("Error, el tablero es demasiado pequeño.")
+    print("Se devio de ingresar un tablero de al menos 8")
+    sys.exit(0)
