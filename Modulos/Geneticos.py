@@ -43,7 +43,7 @@ if n>=8:
     #ruleta
     prob=np.cumsum(fitness/fitness.sum())  
     print (prob)
-    
+    #Crusa
     ale = np.random.rand()
     for t in range (p):
         if ale< prob[t]:
@@ -60,23 +60,33 @@ if n>=8:
     print (padre2)
     corte = np.random.randint(1,n)
     print(corte)
-    hijo11 = padre1[:corte]
-    hijo12 = padre2[corte:]
-    hijo21 = padre2[:corte]
-    hijo22 = padre1[corte:]
-    hijo1= np.concatenate((hijo11,hijo12))
+    #hijo11 = padre1[:corte]
+    #hijo12 = padre2[corte:]
+    #hijo21 = padre2[:corte]
+    #hijo22 = padre1[corte:]
+    hijo1= np.concatenate((padre1[:corte],padre2[corte:]))
+    hijo2= np.concatenate((padre2[:corte],padre1[corte:]))
+    print ("Hijo 1:  \n",hijo1,"\nHijo 2: \n",hijo2)
+    #Mutacion
+    pto1=np.random.choice(n,size=2,replace=False)
+    pto2=np.random.choice(n,size=2,replace=False)
+    print(pto1,"\n",pto2)
+    hijo1[pto1[0]] , hijo1[pto1[1]] = hijo1[pto1[1]] , hijo1[pto1[0]] 
+    hijo1[pto2[0]] , hijo1[pto2[1]] = hijo1[pto2[1]] , hijo1[pto2[0]] 
+    for i in range(n-1):
+        for j in range(i+1,n):
+            if hijo1[i]==hijo1[j]:
+                hijo[j]=
+
+    print(hijo1,"\n",hijo2)
     
-    print (hijo1)
+
     
-   
         
 
+
+
     
-        
-
-
-
-    #Crusa
 else:
     print("Error, el tablero es demasiado pequeño.")
     print("Se devio de ingresar un tablero de al menos 8")
