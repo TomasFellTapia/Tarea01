@@ -74,16 +74,17 @@ if n>=8:
             print(pto1,"\n",pto2)
             hijo1[pto1[0]] , hijo1[pto1[1]] = hijo1[pto1[1]] , hijo1[pto1[0]] 
             hijo1[pto2[0]] , hijo1[pto2[1]] = hijo1[pto2[1]] , hijo1[pto2[0]] 
+        print(hijo1,"\n",hijo2)
         for i in range(n-1):
             for j in range(i+1,n):
                 if hijo1[i]==hijo1[j]:
                     for y in range (n):
                         if y not in hijo1:
-                            hijo[j]=y
+                            hijo1[j]=y
                 if hijo2[i]==hijo2[j]:
-                    for y in range (n):
-                        if y not in hijo2:
-                            hijo[j]=n
+                    for ds in range (n):
+                        if ds not in hijo2:
+                            hijo2[j]=ds
     
             
 
