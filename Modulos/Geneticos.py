@@ -67,20 +67,18 @@ if n>=8:
                 print (padre2)
                 corte = np.random.randint(1,n)
                 print(corte)
-                #hijo11 = padre1[:corte]
-                #hijo12 = padre2[corte:]
-                #hijo21 = padre2[:corte]
-                #hijo22 = padre1[corte:]
                 hijo1= np.concatenate((padre1[:corte],padre2[corte:]))
                 hijo2= np.concatenate((padre2[:corte],padre1[corte:]))
                 print ("Hijo 1:  \n",hijo1,"\nHijo 2: \n",hijo2)
                 #Mutacion
                 if np.random.rand()<pm:
                     pto1=np.random.choice(n,size=2,replace=False)
-                    pto2=np.random.choice(n,size=2,replace=False)
-                    print(pto1,"\n",pto2)
                     hijo1[pto1[0]] , hijo1[pto1[1]] = hijo1[pto1[1]] , hijo1[pto1[0]] 
-                    hijo1[pto2[0]] , hijo1[pto2[1]] = hijo1[pto2[1]] , hijo1[pto2[0]] 
+                    
+                if np.random.rand()<pm:
+                    pto2=np.random.choice(n,size=2,replace=False)
+                    hijo2[pto2[0]] , hijo2[pto2[1]] = hijo2[pto2[1]] , hijo2[pto2[0]] 
+
             
                 for i in range(n-1):
                     for j in range(i+1,n):
@@ -111,6 +109,13 @@ if n>=8:
         print("Tablero:\n",poblacion[bestfp])
         poblacion = hijos
         iter +=1
+        if iter ==0:
+            aux = bestf
+            auxp = bestfp
+        else: 
+            if bestf<aux:
+                aux=bestf
+                auxp = bestfp
        
  
 
