@@ -19,20 +19,19 @@ if n>=8:
     np.random.seed(semilla)
     poblacion = np.zeros((p,n),int)
     iter=0
-    print(poblacion)
+   
     for i in range(p):
-        # print(i+1,": ",np.random.randint(1,p))
-        # print(i+1,": ",np.random.rand())
+       
         poblacion[i]=np.arange(0,n)
         np.random.shuffle(poblacion[i])
     
     for repi in range(1,ite+1):
         hijos=np.zeros((p,n),int)
-        print("\n")
-        print(poblacion)
+        
+        
         # fitness
         fitness = np.zeros(p,int)
-
+        gen = 0
 
         
         for k in range(p):
@@ -43,15 +42,19 @@ if n>=8:
         if repi == 1:
             bestf=np.amin(fitness)
             bestfp=np.where(fitness==bestf)[0]
+            sol=poblacion[bestfp]
+            gen = repi
         else:
             if bestf>np.amin(fitness):
                 bestf=np.amin(fitness)
                 bestfp=np.where(fitness==bestf)[0]
+                sol=poblacion[bestfp]
+                gen = repi
 
         
         #ruleta
         prob=np.cumsum(fitness/fitness.sum())  
-        print (prob)
+        
         #Crusa
         rep = 0
         while rep<p :
@@ -68,13 +71,12 @@ if n>=8:
                     padre2 = poblacion[t]
 
             if np.random.rand()<pc:
-                print (padre1)
-                print (padre2)
+                
                 corte = np.random.randint(1,n)
-                print(corte)
+                
                 hijo1= np.concatenate((padre1[:corte],padre2[corte:]))
                 hijo2= np.concatenate((padre2[:corte],padre1[corte:]))
-                print ("Hijo 1:  \n",hijo1,"\nHijo 2: \n",hijo2)
+               
                 #Mutacion
                 if np.random.rand()<pm:
                     pto1=np.random.choice(n,size=2,replace=False)
@@ -96,7 +98,7 @@ if n>=8:
                                 if ds not in hijo2:
                                     hijo2[j]=ds
         
-                print(hijo1,"\n",hijo2)
+               
                 if p-rep>1:
                     hijos[rep]=hijo1
                     hijos[rep+1]=hijo2
@@ -108,12 +110,16 @@ if n>=8:
                         hijos[t]=hijo2
 
                     rep +=1
-        print (hijos)
-      
-        print("mejo fitness: ",bestf,"Posicion: ",bestfp)
-        print("Tablero:\n",poblacion[bestfp])
-        poblacion = hijos
         
+      
+        
+        poblacion = hijos
+    if bestf == 0:
+        print("Se encontro Solucion en la generacion,",gen," esta es: ")
+    else: 
+        print("No se encontro solucion, el mejor fitness es: ",bestf)
+    print("Tablero: \n",sol,"\n")
+    
 
        
  
