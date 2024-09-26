@@ -26,7 +26,7 @@ if n>=8:
         poblacion[i]=np.arange(0,n)
         np.random.shuffle(poblacion[i])
     
-    while iter<ite:
+    for repi in range(1,ite+1):
         hijos=np.zeros((p,n),int)
         print("\n")
         print(poblacion)
@@ -40,9 +40,14 @@ if n>=8:
                 for j in range(i+1,n):
                     if(np.absolute(poblacion[k][i]-poblacion[k][j])==np.absolute(i-j) or poblacion[k][i]==poblacion[k][j]):
                         fitness[k] +=1
-    
-        bestf=np.amin(fitness)
-        bestfp=np.where(fitness==bestf)[0]
+        if repi == 1:
+            bestf=np.amin(fitness)
+            bestfp=np.where(fitness==bestf)[0]
+        else:
+            if bestf>np.amin(fitness):
+                bestf=np.amin(fitness)
+                bestfp=np.where(fitness==bestf)[0]
+
         
         #ruleta
         prob=np.cumsum(fitness/fitness.sum())  
@@ -108,23 +113,13 @@ if n>=8:
         print("mejo fitness: ",bestf,"Posicion: ",bestfp)
         print("Tablero:\n",poblacion[bestfp])
         poblacion = hijos
-        iter +=1
-        if iter ==0:
-            aux = bestf
-            auxp = bestfp
-        else: 
-            if bestf<aux:
-                aux=bestf
-                auxp = bestfp
+        
+
        
  
 
     
         
-
-
-
-    
 else:
     print("Error, el tablero es demasiado pequeño.")
     print("Se devio de ingresar un tablero de al menos 8")
